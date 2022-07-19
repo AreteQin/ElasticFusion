@@ -12,7 +12,7 @@ Please cite this work if you make use of our system in any of your own endeavors
 
 ## 1.1. Ubuntu ##
 
-Ubuntu 22.04 on Xorg, NVIDIA drivers 510.73.05, CUDA driver 11.6, CUDA toolkit 11.5 (essentially whatever is in the Ubuntu repos).
+Ubuntu 20.04 on Xorg, NVIDIA drivers 510.73.05, CUDA driver 11.6, CUDA toolkit 11.6 (essentially whatever is in the Ubuntu repos).
 
 ```bash
 sudo apt install -y cmake-qt-gui git build-essential libusb-1.0-0-dev libudev-dev openjdk-11-jdk freeglut3-dev libglew-dev libsuitesparse-dev zlib1g-dev libjpeg-dev
@@ -27,7 +27,7 @@ make -j8
 cd ../Pangolin/
 mkdir build
 cd build
-cmake .. -DEIGEN_INCLUDE_DIR=$HOME/ElasticFusion/third-party/Eigen/ -DBUILD_PANGOLIN_PYTHON=false
+cmake .. -DEIGEN_INCLUDE_DIR=$HOME/Downloads/ElasticFusion/third-party/Eigen/ -DBUILD_PANGOLIN_PYTHON=false
 make -j8
 cd ../../..
 mkdir build
