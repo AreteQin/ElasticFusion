@@ -19,8 +19,9 @@ sudo apt install -y cmake-qt-gui git build-essential libusb-1.0-0-dev libudev-de
 ```
 
 ```bash
-git clone git@github.com:mp3guy/ElasticFusion.git
-cd $HOME/Downloads/ElasticFusion/
+cd ~/Downloads/
+git clone https://github.com/AreteQin/ElasticFusion.git
+cd ElasticFusion/
 git submodule update --init
 cd third-party/OpenNI2/
 make -j8
