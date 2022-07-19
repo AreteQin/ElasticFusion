@@ -19,21 +19,7 @@ sudo apt install -y cmake-qt-gui git build-essential libusb-1.0-0-dev libudev-de
 ```
 
 ```bash
-cd ~/Downloads/
-git clone https://github.com/AreteQin/ElasticFusion.git
-cd ElasticFusion/
-git submodule update --init
-cd third-party/OpenNI2/
-make -j8
-cd ../Pangolin/
-mkdir build
-cd build
-cmake .. -DEIGEN_INCLUDE_DIR=$HOME/Downloads/ElasticFusion/third-party/Eigen/ -DBUILD_PANGOLIN_PYTHON=false
-make -j8
-cd ../../..
-mkdir build
-cd build/
-cmake ..
+bash make.sh
 ```
 
 # 2. How do I use it? #
