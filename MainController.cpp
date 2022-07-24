@@ -49,7 +49,6 @@ MainController::MainController(int argc, char* argv[])
   } else {
     bool flipColors = Parse::get().arg(argc, argv, "-f", empty) > -1;
     logReader = new LiveLogReader(logFile, flipColors, LiveLogReader::CameraType::OpenNI2);
-
     good = ((LiveLogReader*)logReader)->cam->ok();
 
 #ifdef WITH_REALSENSE

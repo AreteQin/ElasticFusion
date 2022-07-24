@@ -17,6 +17,7 @@
  *
  */
 
+#include <glog/logging.h>
 #include "LiveLogReader.h"
 
 #include "OpenNI2Interface.h"
@@ -24,7 +25,7 @@
 
 LiveLogReader::LiveLogReader(std::string file, bool flipColors, CameraType type)
     : LogReader(file, flipColors), lastFrameTime(-1), lastGot(-1) {
-  std::cout << "Creating live capture... ";
+  LOG(INFO) << "Creating live capture... ";
   std::cout.flush();
 
   if (type == CameraType::OpenNI2)
@@ -41,20 +42,17 @@ LiveLogReader::LiveLogReader(std::string file, bool flipColors, CameraType type)
   decompressionBufferImage = new Bytef[Resolution::getInstance().numPixels() * 3];
 
   if (!cam || !cam->ok()) {
-    std::cout << "failed!" << std::endl;
+    std::cout << "Failed!" << std::endl;
     std::cout << cam->error();
   } else {
-    std::cout << "success!" << std::endl;
+    LOG(INFO) << "Success!" << std::endl;
 
-    std::cout << "Waiting for first frame";
-    std::cout.flush();
+    LOG(INFO) << "Waiting for first frame";
 
     int lastDepth = cam->latestDepthIndex.getValue();
 
     do {
       std::this_thread::sleep_for(std::chrono::microseconds(33333));
-      std::cout << ".";
-      std::cout.flush();
       lastDepth = cam->latestDepthIndex.getValue();
     } while (lastDepth == -1);
 

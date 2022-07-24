@@ -18,6 +18,8 @@ find_package(Pangolin 0.1 REQUIRED)
 find_package(CUDA REQUIRED)
 find_package(OpenNI2 REQUIRED)
 find_package(SuiteSparse REQUIRED)
+find_package(Glog REQUIRED)
+find_package(realsense2)
 
 include_directories(${JPEG_INCLUDE_DIR})
 include_directories(${ZLIB_INCLUDE_DIR})
@@ -27,11 +29,13 @@ include_directories(${CUDA_INCLUDE_DIRS})
 include_directories(${OPENNI2_INCLUDE_DIR})
 include_directories(${SUITESPARSE_INCLUDE_DIRS})
 include_directories(${Sophus_INCLUDE_DIR})
+include_directories(${GLOG_INCLUDE_DIRS})
 
-if(WITH_REALSENSE)
-  include_directories(${REALSENSE_INCLUDE_DIR})
-  add_definitions(-DWITH_REALSENSE)
-  set(EXTRA_LIBS ${EXTRA_LIBS} ${REALSENSE_LIBRARY})
+if(realsense2_FOUND)
+message("realsense2 found")
+include_directories(${REALSENSE_INCLUDE_DIR})
+add_definitions(-DWITH_REALSENSE)
+set(EXTRA_LIBS ${EXTRA_LIBS} ${realsense2_LIBRARY})
 endif()
 
 file(GLOB srcs *.cpp *.h *.cu *.cuh)
@@ -46,20 +50,21 @@ set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-O3 -msse2 -msse3 -Wall -std=c++11 -DSHA
 
 add_subdirectory(Core)
 
-add_executable(ElasticFusion 
-               ${srcs}
-               ${tools_srcs}
-)
+add_executable(ElasticFusion
+        ${srcs}
+        ${tools_srcs}
+        )
 
 target_link_libraries(ElasticFusion
-                      efusion
-                      ${ZLIB_LIBRARY}
-                      ${JPEG_LIBRARY}
-                      ${Pangolin_LIBRARIES}
-                      ${CUDA_LIBRARIES}
-                      ${EXTRA_LIBS}
-                      ${OPENNI2_LIBRARY}
-                      ${SUITESPARSE_LIBRARIES}
-                      ${BLAS_LIBRARIES}
-                      ${LAPACK_LIBRARIES}
-)
+        efusion
+        ${ZLIB_LIBRARY}
+        ${JPEG_LIBRARY}
+        ${Pangolin_LIBRARIES}
+        ${CUDA_LIBRARIES}
+        ${EXTRA_LIBS}
+        ${OPENNI2_LIBRARY}
+        ${SUITESPARSE_LIBRARIES}
+        ${BLAS_LIBRARIES}
+        ${LAPACK_LIBRARIES}
+        ${GLOG_LIBRARIES}
+        )
